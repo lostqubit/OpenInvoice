@@ -2,8 +2,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
-from .models import Source, Product
-from .serializers import SourceSerializer, ProductSerializer
+from .models import Source, Product, Customer
+from .serializers import SourceSerializer, ProductSerializer, CustomerSerializer
 
 
 class SourceList(APIView):
@@ -93,3 +93,38 @@ class ProductDetail(APIView):
         product = self.get_product(p_id=p_id)
         product.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class CustomerList(APIView):
+    def get(self, request):
+        customers = Customer.objects.all()
+        serializer = CustomerSerializer(instance=customers, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = CustomerSerializer(data=request.POST)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CustomerDetail(APIView):
+    def get_customer(self, c_id):
+        try:
+            return Customer.objects.get(id=c_id)
+        except:
+            raise Http404
+
+    def get(self, request, c_id):
+        customer = self.get_customer(c_id=c_id)
+        serializer = CustomerSerializer(instance=customer)
+        return Response(serializer.data)
+
+    def put(self, request, c_id):
+        customer = self.get_customer(c_id=c_id)
+        serialzier = CustomerSerializer(instance=customer, data=request.data)
+        if serialzier.is_valid():
+            serialzier.save()
+            return Response(serialzier.data)
+        return Response(serialzier.errors, status=status.HTTP_400_BAD_REQUEST)
