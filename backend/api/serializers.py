@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Source, Product
+from .models import Source, Product, Customer
 
 
 class SourceSerializer(serializers.ModelSerializer):
@@ -15,3 +15,9 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return Product.objects.create(**validated_data, source=self.context["source"])
+
+
+class CustomerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
+        fields = "__all__"
