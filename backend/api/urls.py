@@ -9,4 +9,6 @@ urlpatterns = [
          views.ProductDetail.as_view()),
     path("customer/", views.CustomerList.as_view()),
     path("customer/<int:c_id>/", views.CustomerDetail.as_view()),
+    path("order/", views.OrderCreate.as_view()),
+    path("order/<int:o_id>/", views.OrderList.as_view()),
 ]
