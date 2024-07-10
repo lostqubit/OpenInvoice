@@ -1,0 +1,85 @@
+nav {
+	height: 100%;
+	width: 230px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+nav > h2 {
+	padding: 15px 0px;
+	text-align: center;
+	transition: transform 0.35s ease-in-out;
+}
+
+nav > h2:hover {
+	transform: scale(1.05);
+}
+
+nav > h2 > a > span:first-child {
+	color: #4880ff;
+	font-weight: 800;
+}
+
+nav > h2 > a > span:last-child {
+	font-weight: 800;
+}
+
+nav > div {
+	margin-top: 20px;
+}
+
+nav h3 {
+	padding-left: 35px;
+	font-weight: 500;
+	font-size: 12px;
+	letter-spacing: 0.26px;
+}
+
+nav ul {
+	margin-top: 10px;
+	list-style-type: none;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+a {
+	text-decoration: none;
+}
+
+nav li > a {
+	padding: 10px;
+	margin: 0px 20px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	border-radius: 5px;
+}
+
+nav li > a > svg {
+	height: 25px;
+}
+
+nav li > a > span {
+	font-weight: 600;
+	letter-spacing: 0.3px;
+}
+
+.inactive a {
+	margin-left: 25px;
+}
+
+.active {
+	border-left: 5px solid #4880ff;
+}
+
+.active a {
+	background-color: #4880ff;
+}
+
+.active path {
+	fill: white;
+}
+
+.active span {
+	color: white;
+}
