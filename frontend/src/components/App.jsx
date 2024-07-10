@@ -1,11 +1,12 @@
 import "./App.css";
 import ScrollToTop from "../scrollReset";
+import Navbar from "./Navbar.jsx";
 
 function App() {
 	return (
 		<>
 			<ScrollToTop />
-			<h2>Test</h2>
+			<Navbar />
 		</>
 	);
 }
