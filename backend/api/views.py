@@ -1,9 +1,10 @@
+import uuid
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
-from .models import Source, Product, Customer
-from .serializers import SourceSerializer, ProductSerializer, CustomerSerializer
+from .models import Source, Product, Customer, Order
+from .serializers import SourceSerializer, ProductSerializer, CustomerSerializer, OrderSerializer
 
 
 class SourceList(APIView):
@@ -128,3 +129,43 @@ class CustomerDetail(APIView):
             serialzier.save()
             return Response(serialzier.data)
         return Response(serialzier.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class OrderCreate(APIView):
+    def get(self, request):
+        orders = Order.objects.all()
+        serializer = OrderSerializer(instance=orders, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = OrderSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class OrderList(APIView):
+    def get_order(self, o_id):
+        try:
+            return Order.objects.get(id=o_id)
+        except:
+            raise Http404
+
+    def get(self, request, o_id):
+        order = self.get_order(o_id=o_id)
+        serializer = OrderSerializer(instance=order)
+        return Response(serializer.data)
+
+    def put(self, request, o_id):
+        order = self.get_order(o_id=o_id)
+        serializer = OrderSerializer(instance=order, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errros, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, o_id):
+        order = self.get_order(o_id=o_id)
+        order.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
