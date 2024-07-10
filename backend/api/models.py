@@ -15,7 +15,7 @@ class Product(models.Model):
     name = models.CharField(max_length=200)
     source = models.ForeignKey(Source, on_delete=models.CASCADE)
     unit = models.CharField(max_length=100)
-    units_per_case = models.IntegerField()
+    units_per_qty = models.IntegerField()
     price = models.IntegerField()
     price_per_units = models.IntegerField()
 
@@ -35,3 +35,33 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.alias
+
+
+class Order(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
+    status = models.CharField(max_length=100)
+    handling_fee = models.IntegerField()
+    tax = models.IntegerField()
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.customer.name}-{self.id}'
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(
+        Order, related_name="items", on_delete=models.CASCADE)
+    source = models.ForeignKey(Source, on_delete=models.PROTECT)
+    product_name = models.CharField(max_length=150)
+    units = models.CharField(max_length=100)
+    units_per_qty = models.IntegerField()
+    quantity = models.IntegerField()
+    cost_price = models.IntegerField()
+    sell_price = models.IntegerField()
+    price_per = models.IntegerField()
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.order.customer.name}-{self.order.id}:{self.product_name}'
