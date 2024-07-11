@@ -1,12 +1,18 @@
 import "./App.css";
 import ScrollToTop from "../scrollReset";
 import Navbar from "./Navbar.jsx";
+import Searchbar from "./Searchbar.jsx";
+import { useState } from "react";
 
 function App() {
+	const [selected, setSelected] = useState(0);
 	return (
 		<>
 			<ScrollToTop />
-			<Navbar />
+			<Navbar selected={selected} setSelected={setSelected} />
+			<div>
+				<Searchbar selected={selected} />
+			</div>
 		</>
 	);
 }

@@ -2,8 +2,7 @@ import { Link } from "react-router-dom";
 import "./Navbar.css";
 import { useState } from "react";
 
-export default function Navbar() {
-	const [selected, setSelected] = useState(0);
+export default function Navbar({ selected, setSelected }) {
 	return (
 		<nav>
 			<h2>
