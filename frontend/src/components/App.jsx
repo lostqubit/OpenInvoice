@@ -3,6 +3,7 @@ import ScrollToTop from "../scrollReset";
 import Navbar from "./Navbar.jsx";
 import Searchbar from "./Searchbar.jsx";
 import { useState } from "react";
+import { Outlet } from "react-router-dom";
 
 function App() {
 	const [selected, setSelected] = useState(0);
@@ -12,6 +13,7 @@ function App() {
 			<Navbar selected={selected} setSelected={setSelected} />
 			<div>
 				<Searchbar selected={selected} />
+				<Outlet />
 			</div>
 		</>
 	);
