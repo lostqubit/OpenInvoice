@@ -6,6 +6,7 @@ class Source(models.Model):
     commission = models.IntegerField()
     handling_fee = models.IntegerField()
     notional_charge = models.IntegerField()
+    created = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name

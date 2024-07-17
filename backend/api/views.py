@@ -9,15 +9,16 @@ from .serializers import SourceSerializer, ProductSerializer, CustomerSerializer
 
 class SourceList(APIView):
     def get(self, request):
-        sources = Source.objects.all()
+        sources = Source.objects.all().order_by("-created")
         serializer = SourceSerializer(instance=sources, many=True)
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = SourceSerializer(data=request.POST)
+        serializer = SourceSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
