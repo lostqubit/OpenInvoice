@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import "./Navbar.css";
-import { useState } from "react";
 
 export default function Navbar({ selected, setSelected }) {
 	return (
@@ -86,7 +85,7 @@ export default function Navbar({ selected, setSelected }) {
 						</Link>
 					</li>
 					<li className={selected === 6 ? "active" : "inactive"}>
-						<Link to="/" onClick={() => setSelected(6)}>
+						<Link to="/inventory" onClick={() => setSelected(6)}>
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 								<path
 									fill="#202224"
